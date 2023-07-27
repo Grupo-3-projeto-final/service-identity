@@ -37,6 +37,7 @@ app.UseCors(c =>
     c.AllowAnyHeader();
     c.AllowAnyMethod();
     c.AllowAnyOrigin();
+    c.AllowCredentials();
 });
 
 app.UseSwagger();
