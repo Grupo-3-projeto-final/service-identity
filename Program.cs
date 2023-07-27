@@ -9,6 +9,7 @@ using Identity.Infrastructure.Repositories;
 using Identity.Infrastructure.Repositories.Interfaces;
 using Identity.Domain.Services;
 using Identity.Infrastructure.Services;
+using Microsoft.AspNetCore.Cors.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -32,8 +33,7 @@ builder.Services.AddCors(options =>
     options.AddPolicy("CorsPolicy", builder => builder
         .AllowAnyOrigin()
         .AllowAnyMethod()
-        .AllowAnyHeader()
-        .AllowCredentials());
+        .AllowAnyHeader());
 });
 
 
@@ -41,6 +41,8 @@ var app = builder.Build();
 
 app.UseSwagger();
 app.UseSwaggerUI();
+
+app.UseCors("CorsPolicy");
 
 app.MapControllers();
 
