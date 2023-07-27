@@ -27,18 +27,17 @@ builder.Services.AddDbContext<AppContext>(options =>
 builder.Services.AddScoped<ICrypto, Crypto>();
 builder.Services.AddScoped<ITokenJwt, TokenJwt>();
 builder.Services.AddScoped<IRepository<User>, Repository<User>>();
-builder.Services.AddCors();
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("CorsPolicy", builder => builder
+        .AllowAnyOrigin()
+        .AllowAnyMethod()
+        .AllowAnyHeader()
+        .AllowCredentials());
+});
 
 
 var app = builder.Build();
-
-app.UseCors(c =>
-{
-    c.AllowAnyHeader();
-    c.AllowAnyMethod();
-    c.AllowAnyOrigin();
-    c.AllowCredentials();
-});
 
 app.UseSwagger();
 app.UseSwaggerUI();
